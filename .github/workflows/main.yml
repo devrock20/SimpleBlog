@@ -1,0 +1,24 @@
+name: Manual Trigger Example
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment Environment'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - dev
+          - staging
+          - prod
+
+jobs:
+  print-input:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Print Environment
+        run: echo "Deploying to ${{ github.event.inputs.environment }}"
